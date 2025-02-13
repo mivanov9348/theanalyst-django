@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyst Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            color: white;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .dashboard-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .dashboard-options a {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .dashboard-options a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>Analyst Dashboard</div>
+        <div>
+            <a href="#">Home</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="title">Welcome, {{ user.username }}</div>
+        {% if role == "scout" %}
+            <h2>Scout Panel</h2>
+            <div class="dashboard-options">
+                <a href="#">View Players</a>
+                <a href="#">Submit Scouting Reports</a>
+            </div>
+        {% elif role == "recruiter" %}
+            <h2>Recruiter Panel</h2>
+            <div class="dashboard-options">
+                <a href="#">View Scouting Reports</a>
+                <a href="#">Contact Players</a>
+            </div>
+        {% elif role == "admin" %}
+            <h2>Admin Panel</h2>
+            <div class="dashboard-options">
+                <a href="/admin/">Manage Users</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -36,10 +36,6 @@
             border-radius: 10px;
             text-align: center;
         }
-        .title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
         .dashboard-options {
             display: flex;
             justify-content: center;
@@ -60,34 +56,38 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <div>Analyst Dashboard</div>
-        <div>
-            <a href="#">Home</a>
-            <a href="{% url 'logout' %}">Logout</a>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="title">Welcome, {{ user.username }}</div>
-        {% if role == "scout" %}
-            <h2>Scout Panel</h2>
-            <div class="dashboard-options">
-                <a href="#">View Players</a>
-                <a href="#">Submit Scouting Reports</a>
-            </div>
-        {% elif role == "recruiter" %}
-            <h2>Recruiter Panel</h2>
-            <div class="dashboard-options">
-                <a href="#">View Scouting Reports</a>
-                <a href="#">Contact Players</a>
-            </div>
-        {% elif role == "admin" %}
-            <h2>Admin Panel</h2>
-            <div class="dashboard-options">
-                <a href="/admin/">Manage Users</a>
-            </div>
-        {% endif %}
+<div class="navbar">
+    <div>Analyst Dashboard</div>
+    <div>
+        <a href="#">Home</a>
+        <a href="{% url 'logout' %}">Logout</a>
     </div>
+</div>
+
+<div class="container">
+    <div class="title">Welcome, {{ user.username }}</div>
+
+    {% if role == "scout" %}
+    <h2>Scout Panel</h2>
+    <div class="dashboard-options">
+        <a href="{% url 'reports:create_report' %}">Add Scouting Report</a>
+    </div>
+    {% elif role == "recruiter" %}
+    <h2>Recruiter Panel</h2>
+    <div class="dashboard-options">
+        <a href="#">View Scouting Reports</a>
+        <a href="#">Contact Players</a>
+    </div>
+    {% elif role == "admin" %}
+    <h2>Admin Panel</h2>
+    <div class="dashboard-options">
+        <a href="/admin/">Manage Users</a>
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</div>
+
 </body>
 </html>

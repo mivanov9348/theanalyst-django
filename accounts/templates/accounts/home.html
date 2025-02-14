@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .links {
+            margin-top: 20px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .links a:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Scouting System</h1>
-    <a href="{% url 'login' %}">Login</a> |
-    <a href="{% url 'register' %}">Register</a>
+    <div class="container">
+        <h1>Welcome to the Scouting System</h1>
+        <div class="links">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        </div>
+    </div>
 </body>
 </html>

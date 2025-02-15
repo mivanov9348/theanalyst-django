@@ -1,8 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import AthleteForm
-
-from django.shortcuts import render, redirect
-from .models import Athlete
+from .models import Player
 
 def add_player(request):
     if request.method == "POST":
@@ -15,7 +12,7 @@ def add_player(request):
         weight = request.POST.get("weight")
         team = request.POST.get("team") if request.POST.get("team") else None
 
-        Athlete.objects.create(
+        Player.objects.create(
             first_name=first_name,
             last_name=last_name,
             nationality=nationality,
@@ -27,7 +24,7 @@ def add_player(request):
         )
         return redirect("core:dashboard")
 
-    return render(request, "athletes/add_player.html")
+    return render(request, "players/add_player.html")
 
 
 def search_players(request):

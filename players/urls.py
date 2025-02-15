@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import add_player, all_players, search_players
 
-app_name = "athletes"
+app_name = "players"
 
 urlpatterns = [
     path("add/", add_player, name="add_player"),

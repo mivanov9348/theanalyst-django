@@ -1,6 +1,7 @@
 from django.db import models
+from matches.models import Team
 
-class Athlete(models.Model):
+class Player(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     nationality = models.CharField(max_length=50)
@@ -8,10 +9,10 @@ class Athlete(models.Model):
     sport = models.CharField(max_length=50)
     height = models.FloatField()
     weight = models.FloatField()
-    team = models.CharField(max_length=50, null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='players')
 
 class Stats(models.Model):
-    athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE, related_name="stats")
+    athlete = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="stats")
 
     speed = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
     strength = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
@@ -46,31 +47,3 @@ class Stats(models.Model):
             self.avg_rating = 0
 
         self.save()
-
-class Match(models.Model):
-    date = models.DateField()
-    location = models.CharField(max_length=100)
-    home_team = models.CharField(max_length=50)
-    away_team = models.CharField(max_length=50)
-    home_score = models.IntegerField()
-    away_score = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.home_team} {self.home_score} - {self.away_score} {self.away_team} ({self.date})"
-
-class MatchPerformance(models.Model):
-    match = models.ForeignKey(Match, on_delete=models.CASCADE, related_name="performances")
-    athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE, related_name="match_performances")
-
-    minutes_played = models.IntegerField()
-    goals = models.IntegerField(default=0)
-    assists = models.IntegerField(default=0)
-    yellow_cards = models.IntegerField(default=0)
-    red_cards = models.IntegerField(default=0)
-    passes_completed = models.IntegerField(default=0)
-    shots_on_target = models.IntegerField(default=0)
-    tackles_made = models.IntegerField(default=0)
-    match_rating = models.FloatField()
-
-    def __str__(self):
-        return f"{self.athlete.first_name} {self.athlete.last_name} - {self.match} ({self.match_rating}/10)"

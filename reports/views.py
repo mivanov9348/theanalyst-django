@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+
+from players.models import Player
 from .models import Report
-from athletes.models import Athlete
 
 @login_required
 def create_report(request):
-    athletes = Athlete.objects.all()
+    players = Player.objects.all()
 
     if request.method == "POST":
-        athlete_id = request.POST.get("athlete")
+        player_id = request.POST.get("athlete")
         speed = request.POST.get("speed_rating")
         strength = request.POST.get("strength_rating")
         endurance = request.POST.get("endurance_rating")
@@ -21,10 +22,10 @@ def create_report(request):
         composure = request.POST.get("composure_rating")
         report_text = request.POST.get("report_text")
 
-        athlete = get_object_or_404(Athlete, id=athlete_id)
+        player = get_object_or_404(Player, id=player_id)
 
         report = Report.objects.create(
-            athlete=athlete,
+            player=player,
             author=request.user,
             speed_rating=speed,
             strength_rating=strength,
@@ -41,4 +42,4 @@ def create_report(request):
 
         return redirect("dashboard")
 
-    return render(request, "reports/create_report.html", {"athletes": athletes})
+    return render(request, "reports/create_report.html", {"players": players})

@@ -1,7 +1,9 @@
 from django import forms
-from .models import Athlete
+
+from players.models import Player
+
 
 class AthleteForm(forms.ModelForm):
     class Meta:
-        model = Athlete
+        model = Player
         fields = ["first_name", "last_name", "nationality", "age", "sport", "height", "weight", "team"]

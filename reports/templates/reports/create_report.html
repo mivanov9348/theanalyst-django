@@ -9,7 +9,7 @@
         <div class="form-group">
             <label for="athlete">Select Athlete:</label>
             <select id="athlete" name="athlete" required>
-                {% for athlete in athletes %}
+                {% for player in players %}
                 <option value="{{ athlete.id }}">{{ athlete.first_name }} {{ athlete.last_name }}</option>
                 {% endfor %}
             </select>
